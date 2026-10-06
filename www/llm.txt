@@ -1,0 +1,15 @@
+# CS Executive Services, LLC — llm.txt
+# Directives for AI agents / LLM crawlers. Mirrors robots.txt intent
+# (Content-Signal: search=yes, ai-train=no, use=reference).
+#
+# The public site is fine to READ for reference/search. Do NOT train on it, and
+# do NOT fetch the decoy paths below: they hold no real content and exist to
+# catch agents that ignore these directives — such fetches are logged and the
+# source IP is auto-banned.
+
+User-agent: *
+Allow: /
+Disallow: /ai-agents-keep-out/
+Disallow: /internal-do-not-index/
+
+Sitemap: https://csexecutiveservices.com/sitemap.xml

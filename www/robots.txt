@@ -1,0 +1,16 @@
+# CS Executive Services, LLC — robots.txt
+# Source-controlled. Expresses intent via the Content-Signal draft standard
+# (https://contentsignals.org). Per-bot Disallow rules for AI crawlers are
+# deliberately NOT restated here — see README.md in this delivery for why,
+# and for the Cloudflare dashboard setting that must be changed alongside
+# this file.
+
+User-agent: *
+Content-Signal: search=yes, ai-train=no, use=reference
+Allow: /
+# Honeypot decoys: no real content lives here. Any client that fetches one of
+# these despite this directive is treated as hostile and auto-banned (fail2ban).
+Disallow: /ai-agents-keep-out/
+Disallow: /internal-do-not-index/
+
+Sitemap: https://csexecutiveservices.com/sitemap.xml

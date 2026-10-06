@@ -1,0 +1,16 @@
+[Unit]
+Description=CS Executive Services — Contact Form API
+After=network-online.target
+
+[Container]
+Image=localhost/csexec-contact:latest
+ContainerName=csexec-contact
+PublishPort=127.0.0.1:8002:8002
+EnvironmentFile=/etc/corporatetraveldc/contact.env
+
+[Service]
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

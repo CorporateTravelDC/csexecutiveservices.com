@@ -1,0 +1,21 @@
+# CS Executive Services — Wrangler configuration
+# Run from /opt/csexec-website/ on the Pi.
+# Deploys:
+#   wrangler deploy              → pushes the CF Worker
+#   wrangler pages deploy www/   → pushes CF Pages static fallback
+
+name = "csexec-worker"
+main = "cloudflare/worker.js"
+compatibility_date = "2025-01-01"
+
+[[routes]]
+pattern = "csexecutiveservices.com/*"
+zone_name = "csexecutiveservices.com"
+
+[[routes]]
+pattern = "www.csexecutiveservices.com/*"
+zone_name = "csexecutiveservices.com"
+
+[vars]
+ENVIRONMENT = "production"
+# HA expansion: add wrangler-002, wrangler-iad, wrangler-iad-hot routes here

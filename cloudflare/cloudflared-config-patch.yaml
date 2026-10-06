@@ -1,0 +1,25 @@
+# CS Executive Services — cloudflared tunnel config patch
+# Add this ingress rule to ~/.cloudflared/config.yml on the Pi
+# ABOVE the existing www.csexecutiveservices.com rule.
+#
+# This exposes the Pi's web server to the CF Worker via the
+# wrangler.csexecutiveservices.com internal endpoint.
+# CF-proxied (orange cloud), not publicly advertised.
+#
+# HA expansion: add wrangler-002, wrangler-iad, wrangler-iad-hot
+# ingress rules here pointing at additional nodes/IPs as they come online.
+
+# --- ADD TO ~/.cloudflared/config.yml ---
+ingress:
+  # Wrangler endpoint — CF Worker calls this to reach Pi web server
+  # DNS: CNAME wrangler.csexecutiveservices.com → <tunnel-uuid>.cfargotunnel.com
+  - hostname: wrangler.csexecutiveservices.com
+    service: http://127.0.0.1:80
+
+  # Existing www route (keep as-is, Worker now handles public traffic)
+  - hostname: www.csexecutiveservices.com
+    service: http://127.0.0.1:80
+
+  # ... your other existing ingress rules (dispatch, adsb, pihole, etc.) ...
+
+  - service: http_status:404   # catch-all must remain last

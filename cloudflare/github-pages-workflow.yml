@@ -1,0 +1,40 @@
+# CS Executive Services — GitHub Pages (tertiary failsafe)
+# ─────────────────────────────────────────────────────────
+# This file must be manually placed at:
+#   .github/workflows/pages.yml
+# on the Pi and pushed with a PAT that has the 'workflow' scope,
+# OR committed via the GitHub web UI.
+#
+# The current deploy PAT (Contents scope only) cannot write to
+# .github/workflows/ — this is a GitHub security restriction.
+#
+# RUNBOOK STEP: see docs/DEPLOY-HYBRID.md § GitHub Pages Setup
+
+name: Deploy GitHub Pages (tertiary fallback)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'www/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy www/ to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir:  ./www
+          publish_branch: gh-pages
+          commit_message: "deploy: ${{ github.sha }}"
+          force_orphan: false
