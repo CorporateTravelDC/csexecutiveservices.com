@@ -20,3 +20,4 @@ deploy.sh
 # never: working-session notes (docs/SESSION-0130.md), the contact API's private manifest copies
 !contact-api/MANIFEST.sha256*
 !docs/SESSION-*
+build/policy.toml

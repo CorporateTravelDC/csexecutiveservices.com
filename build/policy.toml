@@ -1,0 +1,33 @@
+# build/policy.toml -- product build policy for this repository's container
+# image(s) (2026-10-08). Same schema and tooling as the platform repository's
+# policy (scripts/build/ there; docs/REPRODUCIBLE_BUILDS.md): intent in
+# requirements.in, a generated hash lock, the base image by multi-platform
+# digest, OS packages from a dated Debian snapshot.
+#   lock:   <platform>/scripts/build/lock-python.py --root <this repo>
+#   check:  <platform>/scripts/build/build-policy.py --root <this repo>
+
+schema = 1
+
+[base_images]
+require_fully_qualified = true
+require_digest = true
+require_multi_platform_index = true
+
+[os_packages]
+apt_snapshot_arg = "APT_SNAPSHOT"
+require_single_snapshot = true
+
+[python]
+install_flags = ["--no-cache-dir", "--require-hashes", "--no-deps", "--only-binary=:all:"]
+
+[[python.lock]]
+input = "contact-api/requirements.in"
+lock = "contact-api/requirements.txt"
+python = "3.12"
+consumers = ["contact-api/Containerfile"]
+
+[node]
+lockfiles = []
+
+[downloads]
+scan = ["contact-api/Containerfile", "src/*/Containerfile"]

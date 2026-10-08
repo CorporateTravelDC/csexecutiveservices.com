@@ -1,0 +1,16 @@
+# contact-api/requirements.in -- HUMAN-MAINTAINED dependency INTENT (2026-10-08).
+# Edit this file, then regenerate the hash lock (contact-api/requirements.txt)
+# with the platform repository's scripts/build/lock-python.py --root <this repo>.
+# Builds install only the lock. (Before 2026-10-08 this content was
+# requirements.txt itself: exact pins, but no hashes and transitive deps unpinned.)
+# 2026-10-07: upgraded after a local pip-audit of the running image found 14
+# advisories (starlette 0.37.2, python-multipart 0.0.9 -- mostly upload-parsing
+# denial of service on this public endpoint). Smoke-tested: /healthz 200, valid
+# enquiry 200, malformed 422. starlette pinned explicitly (it comes via fastapi).
+# SUPERSEDED: fastapi==0.111.0, uvicorn[standard]==0.29.0, pydantic[email]==2.7.1,
+#             python-multipart==0.0.9
+fastapi==0.142.2
+starlette==1.7.0
+uvicorn[standard]==0.54.0
+pydantic[email]==2.13.5
+python-multipart==0.0.32
